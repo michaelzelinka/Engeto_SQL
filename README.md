@@ -34,13 +34,13 @@ V databázi byly vytvořeny dvě hlavní tabulky splňující kritéria zadání
 ## Výzkumné otázky a závěry
 
 ### 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
-* **Závěr:** Mzdy nerostou rovnoměrně ve všech odvětvích lineárně. V průběhu sledovaného období (zejména v krizových letech nebo při korekcích trhu) lze v některých specifických odvětvích identifikovat meziroční poklesy (záporný `yoy_growth_pct`). Drtivá většina sektorů však dlouhodobě vykazuje stabilní mzdový růst.
+* **Závěr:** Mzdy nerostou rovnoměrně ve všech odvětvích lineárně. V průběhu sledovaného období (zejména v krizových letech nebo při korekcích trhu) lze v některých specifických odvětvích identifikovat meziroční poklesy (záporný `yoy_growth_pct`). Drtivá většina sektorů však dlouhodobě vykazuje stabilní mzdový růst. 
 * **SQL implementace:** Dotaz využívá window funkci `LAG()` nad primární tabulkou k výpočtu meziročního procentuálního růstu mezd pro každé odvětví zvlášť.
 
 ### 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 * **Závěr:** 
-  * V roce **2006** si obyvatelé mohli za průměrnou mzdu pořídit přibližně **1 233 kg chleba** a **1 508 litrů mléka** (hodnoty se mírně liší dle průměrů konkrétních kategorií).
-  * V roce **2018** se kupní síla zvýšila na **přes 1 300 kg chleba** a **více než 1 600 litrů mléka**, což dokazuje, že celkový růst mezd v tomto období předčil tempo růstu cen těchto dvou základních potravin.
+  * V roce **2006** si obyvatelé mohli za průměrnou mzdu pořídit přibližně **1 176 kg chleba** a **1 313 litrů mléka** (hodnoty se mírně liší dle průměrů konkrétních kategorií).
+  * V roce **2018** se kupní síla zvýšila na **1 233 kg chleba** a **1 1508 litrů mléka**, což dokazuje, že celkový růst mezd v tomto období předčil tempo růstu cen těchto dvou základních potravin.
 * **SQL implementace:** Agregace průměrných mezd a cen vybraných potravin (`Chléb konzumní kmínový`, `Mléko polotučné pasterované`) pro roky 2006 a 2018 s následným podílem (`wage / price`).
 
 ### 3. Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?
@@ -48,9 +48,9 @@ V databázi byly vytvořeny dvě hlavní tabulky splňující kritéria zadání
 * **SQL implementace:** Výpočet meziročních rozdílů cen pro každou kategorii zvlášť a seřazení od nejnižšího průměrného tempa růstu (`ASC`).
 
 ### 4. Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?
-* **Závěr:** Ano, ve sledovaném období lze identifikovat roky (např. v období kolem roku 2008), kdy ceny potravin zaznamenaly skokový nárůst, který dočasně výrazně převýšil růst mezd, což vedlo k dočasnému snížení reálné kupní síly obyvatelstva.
+* **Závěr:** Ano, ve sledovaném období lze identifikovat roky (např. v období kolem roku 2008), kdy ceny potravin zaznamenaly skokový nárůst, který dočasně výrazně převýšil růst mezd, což vedlo k dočasnému snížení reálné kupní síly obyvatelstva. 
 * **SQL implementace:** Srovnání celkových ročních průměrů mezd a cen potravin, výpočet meziročních nárůstů obou veličin a jejich vzájemného rozdílu pomocí `LAG()`.
 
-### 5. Má výška HDP vliv na změny ve mzdách a cenách potravin?
+### 5. Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo následujícím roce výraznějším růstem?
 * **Závěr:** Analýza potvrzuje, že vývoj HDP má zjevnou provázanost zejména s dynamikou růstu mezd (trh práce reaguje na celkový výkon ekonomiky s mírnou setrvačností). U cen potravin je vliv HDP méně přímočarý, protože ceny potravin jsou silně ovlivněny i externími faktory, globálními komoditními trhy a úrodou.
 * **SQL implementace:** Propojení HDP z České republiky v sekundární tabulce s ročními průměry mezd a cen z primární tabulky pomocí `LEFT JOIN` a sledování meziročního růstu HDP (`gdp_growth_pct`).
