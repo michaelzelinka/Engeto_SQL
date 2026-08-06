@@ -35,7 +35,7 @@ V databázi byly vytvořeny dvě hlavní tabulky splňující kritéria zadání
 
 ### 1. Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
 * **Závěr:** Mzdy nerostou rovnoměrně ve všech odvětvích lineárně. V průběhu sledovaného období (zejména v krizových letech nebo při korekcích trhu) lze v některých specifických odvětvích identifikovat meziroční poklesy (záporný `yoy_growth_pct`). Drtivá většina sektorů však dlouhodobě vykazuje stabilní mzdový růst.
-* **SQL implementace:** Dotaz využívá okenní funkci `LAG()` nad primární tabulkou k výpočtu meziročního procentuálního růstu mezd pro každé odvětví zvlášť.
+* **SQL implementace:** Dotaz využívá window funkci `LAG()` nad primární tabulkou k výpočtu meziročního procentuálního růstu mezd pro každé odvětví zvlášť.
 
 ### 2. Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období v dostupných datech cen a mezd?
 * **Závěr:** 
